@@ -1,5 +1,6 @@
 import pool from "../db.js";
 
+// SELECCIONAR POR ID
 export const getProduct = async (req, res) => {
   try {
     const { rows } = await pool.query("SELECT * FROM products WHERE id = $1", [
@@ -17,6 +18,7 @@ export const getProduct = async (req, res) => {
   }
 };
 
+// SELECCIONAR TODOS
 export const getProducts = async (req, res) => {
   try {
     const { rows } = await pool.query("SELECT * FROM products");
@@ -28,6 +30,7 @@ export const getProducts = async (req, res) => {
   }
 };
 
+// INSERTAR EL PRODUCTO SELECCIONADO
 export const createProduct = async (req, res) => {  
   const { code, type, brand, cpu } = req.body;
   try {
@@ -44,6 +47,7 @@ export const createProduct = async (req, res) => {
   }
 };
 
+// ELIMINAR EL PRODUCTO POR ID
 export const deleteProduct = async (req, res) => {
   try {
     const { rowCount } = await pool.query(
@@ -64,6 +68,7 @@ export const deleteProduct = async (req, res) => {
   }
 };
 
+// ACTUALIZAR EL PRODUCTO POR ID
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
   const { code, type, brand, cpu } = req.body;
