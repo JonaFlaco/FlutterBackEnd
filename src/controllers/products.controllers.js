@@ -32,11 +32,11 @@ export const getProducts = async (req, res) => {
 
 // INSERTAR EL PRODUCTO SELECCIONADO
 export const createProduct = async (req, res) => {  
-  const { code, type, brand, cpu } = req.body;
+  const { code, type, brand, cpu, ram, hdd } = req.body;
   try {
     const { rows } = await pool.query(
-      "INSERT INTO products (code, type, brand, cpu) VALUES ($1, $2, $3, $4) RETURNING *",
-      [code, type, brand, cpu]
+      "INSERT INTO products (code, type, brand, cpu, ram, hdd) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *",
+      [code, type, brand, cpu, ram, hdd]
     );
     res.json(rows[0]);
   } catch (error) {
@@ -71,7 +71,7 @@ export const deleteProduct = async (req, res) => {
 // ACTUALIZAR EL PRODUCTO POR ID
 export const updateProduct = async (req, res) => {
   const { id } = req.params;
-  const { code, type, brand, cpu } = req.body;
+  const { code, type, brand, cpu, ram, hdd } = req.body;
 
   try {
     const { rowCount } = await pool.query(
@@ -80,8 +80,10 @@ export const updateProduct = async (req, res) => {
         type = COALESCE($2, type), 
         brand = COALESCE($3, brand), 
         cpu = COALESCE($4, cpu) 
+        ram = COALESCE($5, ram) 
+        hdd = COALESCE($6, hdd) 
       WHERE id = $5`,
-      [code, type, brand, cpu, id]
+      [code, type, brand, cpu, id, ram, hdd]
     );
 
     if (rowCount === 0)

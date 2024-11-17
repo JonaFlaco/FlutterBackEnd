@@ -1,3 +1,6 @@
 ejectutar primero este comando: npm i
 
 Comando para ejecutar el proyecto: npm run dev
+
+recordar cambiar la IP de la pc
+Probar API: http://x.x.x.x:3001/api/products
